@@ -23,9 +23,9 @@ import kotlin.math.roundToInt
 
 class MainActivity : BaseActivity() {
 
-   private lateinit var mBooksViewModel: BooksViewModel
-   private lateinit var mBooksAdapter: BooksAdapter
-   private var alertDialogBuilder: AlertDialog.Builder? = null
+    private lateinit var mBooksViewModel: BooksViewModel
+    private lateinit var mBooksAdapter: BooksAdapter
+    private var alertDialogBuilder: AlertDialog.Builder? = null
 
     override fun getLayoutId() = R.layout.activity_main
 
@@ -42,7 +42,7 @@ class MainActivity : BaseActivity() {
     private fun setListeners() {
         refreshLayout.setOnRefreshListener {
             refreshLayout.isRefreshing = true
-            mBooksViewModel.getBooks()
+            mBooksViewModel.getBooks(true)
         }
     }
 
@@ -51,7 +51,7 @@ class MainActivity : BaseActivity() {
      * */
     private fun setViewModel() {
         mBooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
-        mBooksViewModel.getBooksObserver().observe(this,
+        mBooksViewModel.getBooksObserver()?.observe(this,
             Observer<BooksStates> {
                 processState(it)
             })
